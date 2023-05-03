@@ -1,0 +1,14 @@
+{
+    "manifest_version": 3,
+    "name": "Paper2notion",
+    "version": "0.0.1",
+    "action": { "default_popup": "index.html" },
+      "permissions": [
+        "storage"
+      ],
+      "host_permissions":[
+        "*://api.notion.com/*",
+        "*://api.semanticscholar.org/*",
+        "*://www.notion.so/*"
+      ]
+  }
