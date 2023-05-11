@@ -28,7 +28,7 @@ interface PaperDetails {
   venue: string;
   year: number;
   citationCount: number;
-  tldr: Tldr;
+  tldr?: Tldr;
   authors: Author[];
   openAccessPdf?: OpenAccessPdf;
   externalIds?: Record<string, string>;
@@ -119,7 +119,7 @@ const PaperDetail: React.FC = () => {
       name: author.name,
     }));
 
-    const venueAsSelect = { name: paperDetails.venue };
+    const venueAsSelect = paperDetails.venue? {select:{ name: paperDetails.venue }}: null ;
 
     try {
       const response = await axios.post("https://api.notion.com/v1/pages", {
@@ -132,9 +132,9 @@ const PaperDetail: React.FC = () => {
           year: { number: paperDetails.year },
           url: { url: paperDetails.url },
           abstract: { rich_text: [{ text: { content: paperDetails.abstract } }] },
-          venue: { select: venueAsSelect },
+          ...(venueAsSelect && { venue: venueAsSelect }),
           citationCount: { number: paperDetails.citationCount },
-          tldr: { rich_text: [{ text: { content: paperDetails.tldr.text } }] },
+          tldr: { rich_text: [{ text: { content: paperDetails.tldr ? paperDetails.tldr.text : "" } }] },
           pdf: { url: paperDetails.pdfUrl ?? "" },
         },
       },
@@ -214,7 +214,7 @@ const PaperDetail: React.FC = () => {
         {paperDetails.citationCount}
       </p>
       <p className="mb-2 text-gray-800">
-        <strong className="font-semibold">TL;DR:</strong> {paperDetails.tldr.text}
+        <strong className="font-semibold">TL;DR:</strong>  {paperDetails.tldr?(paperDetails.tldr.text):("None")}
       </p>
       <p className="text-gray-800">
         <strong className="font-semibold">Abstract:</strong>{" "}
