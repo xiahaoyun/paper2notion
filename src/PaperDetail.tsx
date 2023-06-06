@@ -129,9 +129,9 @@ const PaperDetail: React.FC = () => {
           authors: {
             multi_select: authorsAsTags.map((author) => ({ name: author.name })),
           },
-          year: { number: paperDetails.year },
-          url: { url: paperDetails.url },
-          abstract: { rich_text: [{ text: { content: paperDetails.abstract } }] },
+          year: { number: paperDetails.year ?? 0},
+          url: { url: paperDetails.url ?? "" },
+          abstract: { rich_text: [{ text: { content: paperDetails.abstract ?? "" } }] },
           ...(venueAsSelect && { venue: venueAsSelect }),
           citationCount: { number: paperDetails.citationCount },
           tldr: { rich_text: [{ text: { content: paperDetails.tldr ? paperDetails.tldr.text : "" } }] },
