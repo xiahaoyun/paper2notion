@@ -39,7 +39,8 @@ const PaperSearch: React.FC = () => {
           },
         }
       );
-      setPapers(response.data.data);
+      
+      setPapers(response.data.data??[]);
       setTotal(response.data.total);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -102,7 +103,14 @@ const PaperSearch: React.FC = () => {
           <div className="animate-spin h-5 w-5 border-t-4 border-blue-500 rounded-full"></div>
         </div>
       )}
-      
+      {
+        !loading && papers.length === 0 && (
+          <div className="w-full text-center">
+            <p>No results found</p>
+          </div>
+        )
+      }
+
       {papers.length > 0 && (
         <div className="w-full">
           <ul className="list-none p-0 mb-4">
