@@ -134,7 +134,7 @@ const PaperDetail: React.FC = () => {
           abstract: { rich_text: [{ text: { content: paperDetails.abstract ?? "" } }] },
           ...(venueAsSelect && { venue: venueAsSelect }),
           citationCount: { number: paperDetails.citationCount },
-          tldr: { rich_text: [{ text: { content: paperDetails.tldr ? paperDetails.tldr.text : "" } }] },
+          tldr: { rich_text: [{ text: { content: paperDetails.tldr ? (paperDetails.tldr.text ?? "") : "" } }] },
           pdf: { url: paperDetails.pdfUrl ?? "" },
         },
       },
